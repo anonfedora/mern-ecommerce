@@ -1,0 +1,12 @@
+
+
+npm i webfontloader
+npm i chart.js
+npm i country-stat-city
+npm i @material-ui/core
+npm i overlay-navbar
+npm i react-chartjs-2
+npm i react-helmet
+npm i react-js-pagination
+npm i react-material-ui-carousel
+npm i redux-devtools-extension
