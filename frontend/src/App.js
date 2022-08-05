@@ -20,6 +20,12 @@ import UserOptions from "./components/layout/Header/UserOptions";
 import axios from "axios";
 import Search from "./components/Product/Search";
 import Products from "./components/Product/Products";
+import ProductDetails from "./components/Product/ProductDetails";
+import ResetPassword from "./components/User/ResetPassword";
+import UpdatePassword from "./components/User/UpdatePassword";
+import ForgotPassword from "./components/User/ForgotPassword";
+import UpdateProfile from "./components/User/UpdateProfile";
+import Cart from "./components/Cart/Cart";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -65,8 +71,15 @@ function App() {
           <Route path="/header" element={<Header/>} />
           <Route path="/footer" element={<Footer/>} />
           <Route path="/search" element={<Search/>} />
+          <Route path="/password" element={<ResetPassword/>} />
+          <Route path="/password/update" element={<UpdatePassword/>} />
+          <Route path="/profile/update" element={<UpdateProfile/>} />
+          <Route path="/password/forgot" element={<ForgotPassword/>} />
           <Route path="/products" element={<Products/>} />
           <Route path="/not-found" element={<NotFound/>} />
+          <Route path="/payment" element={<Payment/>} />
+          <Route path="/cart" element={<Cart/>} />
+          <Route path="/product/:id" element={<ProductDetails/>} />
           <Route path="/process/payment" element={
             <ProtectedRoute><Payment/></ProtectedRoute>
           }/>

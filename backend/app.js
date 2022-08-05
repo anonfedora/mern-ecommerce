@@ -8,10 +8,10 @@ const errorMiddleware = require('./middleware/error');
 const dotenv = require("dotenv");
 const cors = require("cors");
 //config
-dotenv.config({path: "backend/config/config.env"});
-// if (process.env.NODE_ENV !== "PRODUCTION"){
-//   require("dotenv").config({path: "backend/config/config.env"});
-// }
+// dotenv.config({path: "backend/config/config.env"});
+if (process.env.NODE_ENV !== "PRODUCTION"){
+  require("dotenv").config({path: "backend/config/config.env"});
+}
 app.use(cors());
 
 app.use(express.json());
@@ -31,9 +31,9 @@ app.use("/api/v1", order);
 
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-app.get("*", (req, res)=> {
-  res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
-});
+// app.get("*", (req, res)=> {
+//   res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+// });
 
 app.use(errorMiddleware);
 // app.use((err, req, res, next)=> {

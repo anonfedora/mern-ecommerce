@@ -132,7 +132,7 @@ const LoginSignUp = () => {
                 <div className="loginPassword">
                   <MailOutlineIcon />
                   <input
-                    type="text"
+                    type="password"
                     placeholder="password"
                     required
                     value={loginPassword}
