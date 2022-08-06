@@ -5,7 +5,6 @@ const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const path = require('path');
 const errorMiddleware = require('./middleware/error');
-const dotenv = require("dotenv");
 const cors = require("cors");
 //config
 // dotenv.config({path: "backend/config/config.env"});

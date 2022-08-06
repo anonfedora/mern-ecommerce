@@ -125,7 +125,7 @@ const ProductDetails = () => {
                 </span>
               </div>
               <div className="detailsBlock-3">
-                <h2>{`#${product.price}`}</h2>
+                <h2>{`$${product.price}`}</h2>
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
                     <button onClick={decreaseQuantity}>-</button>

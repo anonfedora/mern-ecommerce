@@ -1,6 +1,6 @@
-const app = require('./app.js') ;
+const app = require('./backend/app.js') ;
 const cloudinary = require('cloudinary');
-const connectDatabase = require('./config/database.js');
+const connectDatabase = require('./backend/config/database.js');
 const cors = require("cors");
 //Handing Exceptions
 process.on("uncaughtException", (err) => {
