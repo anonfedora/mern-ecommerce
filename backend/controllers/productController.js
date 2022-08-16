@@ -31,7 +31,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
 
   const product = await Product.create(req.body);
 
-  res.status(200).json({
+  res.status(201).json({
     success: true,
     product,
   });
@@ -42,6 +42,7 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
   const resultPerPage = 8;
   const productsCount = await Product.countDocuments();
 
+  console.log(productsCount)
   const apiFeature = new ApiFeatures(Product.find(), req.query)
     .search()
     .filter();
@@ -61,6 +62,7 @@ exports.getAllProducts = catchAsyncErrors(async (req, res, next) => {
     resultPerPage,
     filteredProductsCount,
   });
+  console.log(products, productsCount, resultPerPage, filteredProductsCount);
 });
 
 //Get All Products => Admin  --- test
@@ -78,7 +80,7 @@ exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
   if (!product) {
-    return next(new ErrorHandler("Product not found", 4040));
+    return next(new ErrorHandler("Product not found", 404));
   }
   res.status(200).json({
     success: true,
@@ -103,6 +105,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
   }
 
   if (images !== undefined) {
+    //images available? Delete them
     for (let i = 0; i < product.images.length; i++) {
       await cloudinary.uploader.destroy(product.images[i].public_id);
     }

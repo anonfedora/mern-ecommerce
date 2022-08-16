@@ -1,6 +1,6 @@
 import React from "react";
-import "./ProductList.css";
 import { DataGrid } from "@material-ui/data-grid";
+import "./ProductList.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
@@ -10,33 +10,27 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SideBar from "./Sidebar";
 import {
-  getAllUsers,
+  deleteOrder,
+  getAllOrders,
   clearErrors,
-  deleteUser,
-} from "../../actions/userActions";
+} from "../../actions/orderAction";
 import {
-  DELETE_USER_SUCCESS,
-} from "../../constants/userConstants";
+  DELETE_ORDER_RESET,
+  DELETE_ORDER_SUCCESS,
+} from "../../constants/orderConstants";
 import { useEffect } from "react";
 
-const UsersList = () => {
-  const title = `ALL USERS`;
+const OrderList = () => {
+  const title = `ALL ORDERS`;
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const alert = useAlert();
+  const { error, orders } = useSelector((state) => state.allOrders);
+  const { error: deleteError, isDeleted } = useSelector((state) => state.order);
 
-  const { error, users } = useSelector((state) => state.allUsers);
-
-  const navigate = useNavigate();
-
-  const {
-    error: deleteError,
-    isDeleted,
-    message,
-  } = useSelector((state) => state.profile);
-
-  const deleteUserHandler = (id) => {
-    dispatch(deleteUser(id));
+  const deleteOrderHandler = (id) => {
+    dispatch(deleteOrder(id));
   };
 
   useEffect(() => {
@@ -45,53 +39,62 @@ const UsersList = () => {
       dispatch(clearErrors());
     }
     if (deleteError) {
-      alert.error(deleteError());
+      alert.error(deleteError);
       dispatch(clearErrors());
     }
     if (isDeleted) {
-      alert.success(message);
-      navigate("/admin/users");
-      dispatch({ type: DELETE_USER_SUCCESS });
+      alert.success("Order Deleted Successfully");
+      navigate("/admin/orders");
+      dispatch({ type: DELETE_ORDER_SUCCESS });
     }
-    dispatch(getAllUsers());
+    dispatch(getAllOrders());
   }, [dispatch, alert, error, deleteError, navigate, isDeleted]);
 
   const columns = [
-    { field: "id", headerName: "User ID", minWidth: 180, flex: 0.8 },
-
-    { field: "email", headerName: "Email", minWidth: 200, flex: 1 },
-
-    { field: "name", headerName: "Name", minWidth: 150, flex: 0.5 },
+    { filed: "id", headerName: "Order ID", minWidth: 300, flex: 1 },
 
     {
-      field: "role",
-      headerName: "Role",
-      type: "number",
+      filed: "status",
+      headerName: "Status",
       minWidth: 150,
-      flex: 0.3,
+      flex: 0.5,
       cellClassName: (params) => {
-        return params.getValue(params.id, "role") === "admin"
+        return params.getValue(params.id, "status") === "Delivered"
           ? "greenColor"
           : "redColor";
       },
     },
     {
-      field: "actions",
-      headerName: "Actions",
-      type: "number",
+      filed: "ItemsQty",
+      headerName: "Items Qty",
       minWidth: 150,
+      type: "number",
+      flex: 0.4,
+    },
+    {
+      filed: "amount",
+      headerName: "Amount",
+      minWidth: 270,
+      type: "number",
+      flex: 0.5,
+    },
+    {
+      filed: "actions",
+      headerName: "Actions",
+      minWidth: 150,
+      type: "number",
       flex: 0.3,
       sortable: false,
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/admin/user/${params.getValue(params.id, "id")}`}>
+            <Link to={`/admin/order/${params.getValue(params.id, "id")}`}>
               <EditIcon />
             </Link>
 
             <Button
               onClick={() =>
-                deleteUserHandler(params.getValue(params.id, "id"))
+                deleteOrderHandler(params.getValue(params.id, "id"))
               }
             >
               <DeleteIcon />
@@ -101,25 +104,25 @@ const UsersList = () => {
       },
     },
   ];
+
   const rows = [];
 
-  users &&
-    users.forEach((item) => {
+  orders &&
+    orders.forEach((item) => {
       rows.push({
+        itemsQty: item.orderItems.length,
         id: item._id,
-        role: item.role,
-        email: item.email,
-        name: item.name,
+        status: item.orderStatus,
+        amount: item.totalPrice,
       });
     });
   return (
     <>
       <MetaData title={`${title} - Admin`} />
-
       <div className="dashboard">
         <SideBar />
         <div className="productListContainer">
-          <h1 id="productListHeading">ALL USERS</h1>
+          <h1 id="productListHeading">{title}</h1>
 
           <DataGrid
             rows={rows}
@@ -135,4 +138,4 @@ const UsersList = () => {
   );
 };
 
-export default UsersList;
+export default OrderList;

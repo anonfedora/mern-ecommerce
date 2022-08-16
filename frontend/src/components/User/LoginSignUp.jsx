@@ -70,7 +70,6 @@ const LoginSignUp = () => {
       setUser({...user, [e.target.name]: e.target.value});
     }
   };
-  console.log(location);
   const redirect = location.search ? location.search.split("=")[1] : "/account";
 
 

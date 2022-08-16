@@ -52,11 +52,11 @@ const UpdateProfile = () => {
   };
 
   useEffect(() => {
-    // if (user) {
-    //   setName(user?.name);
-    //   setEmail(user?.email);
-    //   setAvatar(user?.avatar.url);
-    // }
+    if (user){
+      setName(user.name);
+      setEmail(user.email);
+      setAvatar(user.avatar);
+    }
 
     if (error) {
       alert.error(error);

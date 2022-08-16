@@ -1,7 +1,6 @@
 const app = require('./backend/app.js') ;
 const cloudinary = require('cloudinary');
 const connectDatabase = require('./backend/config/database.js');
-const cors = require("cors");
 //Handing Exceptions
 process.on("uncaughtException", (err) => {
     console.log(`Error: ${err.message}`);
@@ -14,7 +13,6 @@ if (process.env.NODE_ENV !== "PRODUCTION"){
     require("dotenv").config({path: "backend/config/config.env"});
 }
 
-app.use(cors());
 //Database connection
 connectDatabase();
 

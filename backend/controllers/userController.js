@@ -165,7 +165,6 @@ exports.profileUpdate = catchAsyncErrors(async (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
   };
-  console.log(req.body.avatar);
   if (req.body.avatar !== "") {
     const user = await User.findById(req.user.id);
     const imageId = user.avatar.public_id;
@@ -217,6 +216,7 @@ exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
     success: true,
     user,
   });
+  console.log(user)
 });
 
 //Update user role => Admin

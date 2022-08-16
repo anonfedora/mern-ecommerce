@@ -9,11 +9,13 @@ import ListAltIcon from "@material-ui/icons/ListAlt";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import { useState } from "react";
 import { useAlert } from "react-alert";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../../actions/userActions";
 
 const UserOptions = ({ user }) => {
+  const {cartItems} = useSelector((state)=> state.cart);
+
   const [open, setOpen] = useState(false);
   const alert = useAlert();
   const dispatch = useDispatch();
@@ -22,15 +24,15 @@ const UserOptions = ({ user }) => {
   const options = [
     { icons: <ListAltIcon />, name: "Orders", func: orders },
     { icons: <PersonIcon />, name: "Profile", func: account },
-    // {
-    //   icons: (
-    //     <ShoppingCartIcon
-    //       style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
-    //     />
-    //   ),
-    //   name: `Cart(${cartItems.length})`,
-    //   func: cart,
-    // },
+    {
+      icons: (
+        <ShoppingCartIcon
+          style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
+        />
+      ),
+      name: `Cart(${cartItems.length})`,
+      func: cart,
+    },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ];
   if (user.role === "admin") {

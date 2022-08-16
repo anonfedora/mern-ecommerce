@@ -31,10 +31,30 @@ import UpdatePassword from "./components/User/UpdatePassword";
 import ForgotPassword from "./components/User/ForgotPassword";
 import UpdateProfile from "./components/User/UpdateProfile";
 import Cart from "./components/Cart/Cart";
+import Sidebar from "./components/Admin/Sidebar";
+import ProductList from "./components/Admin/ProductList";
+import Dashboard from "./components/Admin/Dashboard";
+import NewProduct from "./components/Admin/NewProduct";
+import OrderList from "./components/Admin/OrderList";
+import ProcessOrder from "./components/Admin/ProcessOrder";
+import ProductReviews from "./components/Admin/ProductReviews";
+import UpdateProduct from "./components/Admin/UpdateProduct";
+import UpdateUser from "./components/Admin/UpdateUser";
+import UsersList from "./components/Admin/UsersList";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
+  const {
+    products,
+    loading,
+    error,
+    productsCount,
+    resultPerPage,
+    filteredProductsCount,
+  } = useSelector((state) => state.products);
+
+  console.log(products);
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
@@ -60,7 +80,6 @@ function App() {
         <Header />
         {console.log(isAuthenticated)}
         {isAuthenticated && <UserOptions user={user} />}
-
         {stripeApiKey && (
           <Elements stripe={loadStripe(stripeApiKey)}>
             <Route
@@ -89,6 +108,7 @@ function App() {
           <Route path="/password" element={<ResetPassword />} />
           <Route path="/login" element={<LoginSignUp />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/sidebar" element={<Sidebar />} />
 
           <Route
             path="/shipping"
@@ -132,7 +152,75 @@ function App() {
           />
           <Route
             path="/admin/dashboard"
-            element={<ProtectedRoute isAdmin={true}></ProtectedRoute>}
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <Dashboard />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/products"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <ProductList />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/product"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <NewProduct />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/product/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UpdateProduct />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/orders"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <OrderList />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/order/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <ProcessOrder />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UsersList />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/user/:id"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <UpdateUser />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/reviews"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <ProductReviews />{" "}
+              </ProtectedRoute>
+            }
           />
 
           <Route

@@ -3,7 +3,7 @@ import "./Products.css";
 import Loader from "../layout/Loader/Loader";
 import ProductCard from "../Home/ProductCard";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, getProduct } from "../../actions/productAction.js";
+import { clearErrors, getProduct } from "../../actions/productAction";
 import { useAlert } from "react-alert";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -27,11 +27,6 @@ const Products = () => {
   const alert = useAlert();
   const params = useParams();
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([0, 50000]);
-  const [category, setCategory] = useState("");
-  const [ratings, setRatings] = useState(0);
-
   const {
     products,
     loading,
@@ -40,6 +35,11 @@ const Products = () => {
     resultPerPage,
     filteredProductsCount,
   } = useSelector((state) => state.products);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [price, setPrice] = useState([0, 50000]);
+  const [category, setCategory] = useState("");
+  const [ratings, setRatings] = useState(0);
   const keyword = params.keyword;
 
   const setCurrentPageNo = (e) => {
