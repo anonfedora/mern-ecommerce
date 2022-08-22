@@ -1,1 +1,1 @@
-web: node ./server.js -port 800
+web: node ./server.js -port 8000

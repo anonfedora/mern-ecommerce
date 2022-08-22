@@ -43,7 +43,7 @@ const LoginSignUp = () => {
 
   const loginSubmit = (e) => {
     e.preventDefault();
-    dispatch(login(loginEmail,loginPassword));
+    dispatch(login(loginEmail, loginPassword));
   };
 
   const registerSubmit = (e) => {
@@ -53,25 +53,24 @@ const LoginSignUp = () => {
     myForm.set("email", email);
     myForm.set("password", password);
     myForm.set("avatar", avatar);
-  }
+  };
 
   const registerDataChange = (e) => {
-    if (e.target.name === "avatar"){
-      const reader = new FileReader()
+    if (e.target.name === "avatar") {
+      const reader = new FileReader();
 
       reader.onload = () => {
-        if (reader.readyState === 2){
+        if (reader.readyState === 2) {
           setAvatar(reader.result);
           setAvatarPreview(reader.result);
         }
       };
       reader.readAsDataURL(e.target.files[0]);
-    }else{
-      setUser({...user, [e.target.name]: e.target.value});
+    } else {
+      setUser({ ...user, [e.target.name]: e.target.value });
     }
   };
   const redirect = location.search ? location.search.split("=")[1] : "/account";
-
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {
@@ -91,12 +90,12 @@ const LoginSignUp = () => {
   };
 
   useEffect(() => {
-    if (error){
+    if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-    
-    if (isAuthenticated){
+
+    if (isAuthenticated) {
       navigate(redirect);
     }
   }, [dispatch, error, alert, navigate, isAuthenticated, redirect]);
@@ -116,7 +115,12 @@ const LoginSignUp = () => {
                 </div>
                 <button ref={switcherTab}></button>
               </div>
-              <form action="" ref={loginTab} onSubmit={loginSubmit} className="loginForm">
+              <form
+                action=""
+                ref={loginTab}
+                onSubmit={loginSubmit}
+                className="loginForm"
+              >
                 <div className="loginEmail">
                   <MailOutlineIcon />
                   <input
@@ -140,17 +144,16 @@ const LoginSignUp = () => {
                 </div>
                 <Link to="/password/forgot">Forgot Password ?</Link>
                 <input type="submit" value="Login" className="loginBtn" />
-              
               </form>
               <form
                 encType="multipart/form-data"
-                ref={registerTab }
+                ref={registerTab}
                 onSubmit={registerSubmit}
                 className="sign-up-form"
               >
                 <div className="signUpName">
-                <FaceIcon/>
-                <input
+                  <FaceIcon />
+                  <input
                     type="text"
                     placeholder="Name"
                     required
@@ -160,8 +163,8 @@ const LoginSignUp = () => {
                   />
                 </div>
                 <div className="signUpEmail">
-                <MailOutline/>
-                <input
+                  <MailOutline />
+                  <input
                     type="email"
                     placeholder="Email"
                     required
@@ -171,8 +174,8 @@ const LoginSignUp = () => {
                   />
                 </div>
                 <div className="signUpPassword">
-                <LockOpen/>
-                <input
+                  <LockOpen />
+                  <input
                     type="password"
                     placeholder="password"
                     required
@@ -183,11 +186,13 @@ const LoginSignUp = () => {
                 </div>
 
                 <div id="registerImage">
-                  <img src={avatarPreview } alt="Avatar Preview" />
-                  <input type="file"
-                  name="avatar"
-                  accept="image/*"
-                  onChange={registerDataChange} />
+                  <img src={avatarPreview} alt="Avatar Preview" />
+                  <input
+                    type="file"
+                    name="avatar"
+                    accept="image/*"
+                    onChange={registerDataChange}
+                  />
                 </div>
                 <input type="submit" value="Register" className="signUpBtn" />
               </form>

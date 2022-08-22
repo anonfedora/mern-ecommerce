@@ -15,6 +15,7 @@ import { useState } from "react";
 const UpdatePassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const alert = useAlert();
 
   const { error, isUpdated, loading } = useSelector((state) => state.profile);
 
@@ -41,7 +42,7 @@ const UpdatePassword = () => {
     }
 
     if (isUpdated) {
-      alert.success("Profile Updated Successfully");
+      alert.success("Password Updated Successfully");
 
       navigate("/account");
 

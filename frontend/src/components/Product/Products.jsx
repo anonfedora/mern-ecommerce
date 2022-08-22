@@ -23,6 +23,7 @@ const categories = [
 ];
 
 const Products = () => {
+  const title = "PRODUCTS - SHOP";
   const dispatch = useDispatch();
   const alert = useAlert();
   const params = useParams();
@@ -37,7 +38,7 @@ const Products = () => {
   } = useSelector((state) => state.products);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([0, 50000]);
+  const [price, setPrice] = useState([0, 40000]);
   const [category, setCategory] = useState("");
   const [ratings, setRatings] = useState(0);
   const keyword = params.keyword;
@@ -56,8 +57,8 @@ const Products = () => {
       alert.error(error);
       dispatch(clearErrors());
 
-      dispatch(getProduct(keyword, currentPage, price, category, ratings));
     }
+    dispatch(getProduct(keyword, currentPage, price, category, ratings));
   }, [dispatch, keyword, currentPage, price, category, ratings, alert, error]);
   return (
     <>
@@ -65,7 +66,7 @@ const Products = () => {
         <Loader />
       ) : (
         <>
-          <MetaData title="PRODUCTS - SHOP" />
+          <MetaData title={title} />
           <h2 className="productsHeading">Products</h2>
 
           <div className="products">
@@ -83,7 +84,7 @@ const Products = () => {
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"
               min={0}
-              max={50000}
+              max={40000}
             />
 
             <Typography>Categories</Typography>
@@ -98,6 +99,7 @@ const Products = () => {
                 </li>
               ))}
             </ul>
+            
             <fieldset>
               <Typography component="legend">Ratings Above</Typography>
               <Slider

@@ -22,10 +22,10 @@ const UserOptions = ({ user }) => {
   const navigate = useNavigate();
 
   const options = [
-    { icons: <ListAltIcon />, name: "Orders", func: orders },
-    { icons: <PersonIcon />, name: "Profile", func: account },
+    { icon: <ListAltIcon />, name: "Orders", func: orders },
+    { icon: <PersonIcon />, name: "Profile", func: account },
     {
-      icons: (
+      icon: (
         <ShoppingCartIcon
           style={{ color: cartItems.length > 0 ? "tomato" : "unset" }}
         />
@@ -35,6 +35,7 @@ const UserOptions = ({ user }) => {
     },
     { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
   ];
+  
   if (user.role === "admin") {
     options.unshift({
       icon: <DashboardIcon />,

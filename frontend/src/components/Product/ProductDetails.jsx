@@ -103,7 +103,7 @@ const ProductDetails = () => {
       ) : (
         <>
           <MetaData title={`${product.name} -- Shop`} />
-          <div className="productDetails">
+          <div className="ProductDetails">
             <div>
               <Carousel>
                 {product.images &&
@@ -130,7 +130,7 @@ const ProductDetails = () => {
                   <div className="detailsBlock-3-1-1">
                     <button onClick={decreaseQuantity}>-</button>
                     <input type="number" readOnly value={quantity} />
-                    <button onClick={increaseQuantity}>-</button>
+                    <button onClick={increaseQuantity}>+</button>
                   </div>
                   <button
                     disabled={product.stock < 1 ? true : false}

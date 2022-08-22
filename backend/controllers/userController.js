@@ -104,7 +104,6 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 //Password Reset
 exports.passwordReset = catchAsyncErrors(async (req, res, next) => {
   //creating token hash  from resetPasswordToken/resetPasswordExpire
-  console.log(req.params.token);
   const resetPasswordToken = crypto
     .createHash("sha256")
     .update(req.params.token)
@@ -189,7 +188,6 @@ exports.profileUpdate = catchAsyncErrors(async (req, res, next) => {
   });
   res.status(200).json({
     success: true,
-    user,
   });
 });
 
@@ -216,7 +214,6 @@ exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
     success: true,
     user,
   });
-  console.log(user)
 });
 
 //Update user role => Admin
@@ -236,11 +233,13 @@ exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
-exports.userDelete = catchAsyncErrors(async (req,res,next)=> {
+exports.userDelete = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.params.id);
 
-  if (!user){
-    return next(new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400))
+  if (!user) {
+    return next(
+      new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400)
+    );
   }
   console.log(user);
   const imageId = user.avatar.public_id;
@@ -254,6 +253,3 @@ exports.userDelete = catchAsyncErrors(async (req,res,next)=> {
     message: "User Deleted Successfully",
   });
 });
-
-
-

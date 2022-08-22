@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 import { Doughnut, Line } from "react-chartjs-2";
 import { useSelector, useDispatch } from "react-redux";
 import { getAdminProduct } from "../../actions/productAction";
-import { getAllOrders } from "../../actions/orderAction.js";
-import { getAllUsers } from "../../actions/userActions.js";
+import { getAllOrders } from "../../actions/orderAction";
+import { getAllUsers } from "../../actions/userActions";
 import MetaData from "../layout/MetaData";
 import { useEffect } from "react";
 
@@ -82,10 +82,12 @@ const Dashboard = () => {
               <p>Product</p>
               <p>{products && products.length}</p>
             </Link>
+
             <Link to="/admin/orders">
               <p>Orders</p>
               <p>{orders && orders.length}</p>
             </Link>
+            
             <Link to="/admin/users">
               <p>Users</p>
               <p>{users && users.length}</p>

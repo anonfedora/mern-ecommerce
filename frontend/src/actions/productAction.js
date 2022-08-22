@@ -32,7 +32,7 @@ import {
 } from "../constants/productConstants";
 //Get All Products
 export const getProduct =
-  (keyword = "", currentPage = 1, price = [0, 50000], category, ratings = 0) =>
+  (keyword = "", currentPage = 1, price = [0, 40000], category, ratings = 0) =>
   async (dispatch) => {
     try {
       dispatch({ type: ALL_PRODUCT_REQUEST });
@@ -42,6 +42,7 @@ export const getProduct =
       if (category) {
         link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&category=${category}&ratings[gte]=${ratings}`;
       }
+
       const { data } = await axios.get(link);
 
       dispatch({
@@ -51,7 +52,7 @@ export const getProduct =
     } catch (error) {
       dispatch({
         type: ALL_PRODUCT_FAIL,
-        payload: error.response.data.message,
+        payload: error.response,
       });
     }
   };
@@ -61,7 +62,7 @@ export const getAdminProduct = () => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_PRODUCT_REQUEST });
 
-    const { data } = await axios.get(`/api/v1/admin/products`);
+    const { data } = await axios.get("/api/v1/admin/products");
 
     dispatch({ type: ADMIN_PRODUCT_SUCCESS, payload: data.products });
   } catch (error) {
